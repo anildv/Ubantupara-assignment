@@ -1,0 +1,70 @@
+---
+ 
+  - name: install docker
+    become: yes
+    become_user: root
+    hosts: all
+    tasks:
+          - name: install dependencies
+            apt:
+                    name: apt-transport-https
+                    state: present
+                    update_cache: yes
+          - name: install dependencies
+            apt:
+                    name: ca-certificates
+                    state: present
+                    update_cache: yes
+          - name: install dependencies
+            apt:
+                    name: curl
+                    state: present
+                    update_cache: yes
+          - name: install dependencies
+            apt:
+                    name: gnupg-agent
+                    state: present
+                    update_cache: yes
+          - name: install dependencies
+            apt:
+                    name: software-properties-common
+                    state: present
+                    update_cache: yes
+          - name: add GPG key
+            apt_key:
+                    url: https://download.docker.com/linux/debian/gpg
+                    state: present
+          - name: add docker repository
+            apt_repository:
+                    repo: deb https://download.docker.com/linux/debian bullseye stable
+                    state: present
+          - name: install docker
+            apt:
+                    name: docker-ce
+                    state: present
+          - name: install docker
+            apt:
+                    name:  docker-ce-cli
+                    state: present
+          - name: install docker
+            apt:
+                    name:  containerd.io
+                    state: present
+          - name: install docker
+            apt:
+                    name:  docker-compose-plugin
+                    state: present
+          - name: make sure docker is active
+            service:
+                    name: docker
+                    state: started
+
+                   
+          - name: Install docker-compose
+            get_url:
+                    url : https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64
+                    dest: /usr/local/bin/docker-compose
+                    mode: '+x'
+
+...
+

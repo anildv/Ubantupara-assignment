@@ -1,0 +1,14 @@
+---
+   - name: user creation
+     become: yes
+     become_user: root
+     hosts: all
+     tasks:
+
+             - name: create user
+               user:
+                       name: kunal
+                       password: kunal123
+                       uid: 299
+                       home: /home/kunal/
+...
